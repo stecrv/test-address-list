@@ -6,21 +6,25 @@ import {bindActionCreators} from 'redux';
 import { Grid, Col, Row, Button} from 'react-bootstrap';
 
 /*
-import addressItem from './addressForm';
-import addressForm from './addressItem';
+import addressItem from './addressItem';
 */
+
+import AddressForm from './addressForm';
+
 
 
 class AddressesList extends React.Component{
     componentDidMount(){
-        // this.props.getAddresses()
+        this.props.getAddresses()
     }
     render(){
         return(
             <div>
                 <h1>Addresses</h1>
                 <div>list</div>
-                <div>form</div>
+                <div>
+                    <AddressForm />
+                </div>
             </div>
         )
     }

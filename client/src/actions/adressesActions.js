@@ -1,9 +1,15 @@
 "use strict"
 import axios from 'axios';
 
+
+export function getServerURL(){
+    return ''
+
+}
+
 export function getAddresses(){
     return function(dispatch){
-        axios.get("/addresses")
+        axios.get(getServerURL()+"/addresses")
             .then(function(response){
                 dispatch({type:"GET_ADDRESSES", payload:response.data})
             })
@@ -15,7 +21,7 @@ export function getAddresses(){
 
 export function postAddresses(address){
     return function(dispatch){
-        axios.post("/addresses", address)
+        axios.post(getServerURL()+"/addresses", address)
             .then(function(response){
                 dispatch({type:"POST_ADDRESS", payload:response.data})
             })
@@ -28,7 +34,7 @@ export function postAddresses(address){
 
 export function deleteAddresses(id){
     return function(dispatch){
-        axios.delete("/addresses/" + id)
+        axios.delete(getServerURL()+"/addresses/" + id)
             .then(function(response){
                 dispatch({type:"DELETE_ADDRESS", payload:id})
             })
@@ -41,7 +47,7 @@ export function deleteAddresses(id){
 
 export function updateAddresses(address){
     return function(dispatch){
-        axios.post("/addresses/" + address.id, address)
+        axios.post(getServerURL()+"/addresses/" + address.id, address)
             .then(function(response){
                 dispatch({type:"POST_ADDRESS", payload:response.data})
             })

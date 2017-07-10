@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const path = require('path')
 const bodyParser = require('body-parser')
 const port = 3000
 const addresses = []
@@ -7,6 +8,8 @@ let id = 1;
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+app.use('/public', express.static(path.join(__dirname + '/client/public')));
 
 app.get('/', (req, res) => {
   res.json('Hello World!')
