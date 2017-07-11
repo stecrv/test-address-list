@@ -2,14 +2,14 @@
 import axios from 'axios';
 
 
-export function getServerURL(){
+export function getRestUrl(){
     return ''
 
 }
 
 export function getAddresses(){
     return function(dispatch){
-        axios.get(getServerURL()+"/addresses")
+        axios.get(getRestUrl()+"/addresses")
             .then(function(response){
                 dispatch({type:"GET_ADDRESSES", payload:response.data})
             })
@@ -20,12 +20,17 @@ export function getAddresses(){
 }
 
 export function postAddresses(address){
+
     return function(dispatch){
-        axios.post(getServerURL()+"/addresses", address)
+        axios.post(getRestUrl()+"/addresses", address)
             .then(function(response){
                 dispatch({type:"POST_ADDRESS", payload:response.data})
             })
+            .then(function(){
+                dispatch(getAddresses());
+            })
             .catch(function(err){
+                console.log(err);
                 dispatch({type:"POST_ADDRESS_REJECTED", payload:"there was an error while posting "})
             })
     }
@@ -34,7 +39,7 @@ export function postAddresses(address){
 
 export function deleteAddresses(id){
     return function(dispatch){
-        axios.delete(getServerURL()+"/addresses/" + id)
+        axios.delete(getRestUrl()+"/addresses/" + id)
             .then(function(response){
                 dispatch({type:"DELETE_ADDRESS", payload:id})
             })
@@ -47,7 +52,7 @@ export function deleteAddresses(id){
 
 export function updateAddresses(address){
     return function(dispatch){
-        axios.post(getServerURL()+"/addresses/" + address.id, address)
+        axios.post(getRestUrl()+"/addresses/" + address.id, address)
             .then(function(response){
                 dispatch({type:"POST_ADDRESS", payload:response.data})
             })
