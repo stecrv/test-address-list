@@ -10,10 +10,10 @@ export function addressesReducers(state={
             return {...state, addresses:[...action.payload]}
             break;
         case "POST_ADDRESS":
-            return {...state, msg:'Saved! Click to continue', style:'success', validation:'success'}
+            return {...state, msg:'Saved! Click to continue', style:'success', validation:[]}
             break;
         case "POST_ADDRESS_REJECTED":
-            return {...state, msg:'Please, try again', style:'danger', validation:'error'}
+            return {...state, msg:action.payload.msg, style:'danger', validation:action.payload.validation}
             break;
         case "DELETE_ADDRESS":
             const currentAddressToDelete = [...state.addresses]

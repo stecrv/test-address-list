@@ -26,8 +26,18 @@ class AddressForm extends React.Component{
     }
 
     render(){
+        var validationTag = ''
+        if(this.props.validation && this.props.validation.length) {
+            const validationError = this.props.validation.map(function (err, index) {
+                return (
+                    <li key={index}>{err.field} : {err.message}</li>
+                )
+            });
+            validationTag = (<Panel bsStyle="danger" header="Validation error"><ul>{ validationError }</ul></Panel>)
+        }
         return(
             <Well>
+                { validationTag }
                 <Panel>
                     <FormGroup controlId="title">
                         <ControlLabel>Title</ControlLabel>
@@ -67,10 +77,15 @@ class AddressForm extends React.Component{
         )
     }
 }
-
+function mapStateToProps(state){
+    return{
+        addresses: state.addresses.addresses,
+        validation: state.addresses.validation
+    }
+}
 function mapDispatchToProps(dispatch){
     return bindActionCreators(
         {postAddresses},
         dispatch)
 }
-export default connect(null,mapDispatchToProps)(AddressForm)
+export default connect(mapStateToProps,mapDispatchToProps)(AddressForm)

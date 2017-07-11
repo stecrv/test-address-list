@@ -7,9 +7,12 @@ import {deleteAddresses,updateAddresses} from '../../actions/adressesActions';
 
 class AddressItem extends React.Component{
     handleEdit(){
-
+        this.props.updateAddresses(this.props.id)
     }
     handleRemove(){
+        this.props.deleteAddresses()
+    }
+    handleDelivery(){
 
     }
     render(){
@@ -24,9 +27,11 @@ class AddressItem extends React.Component{
                         <p>{this.props.data.city}</p>
                         <p>{this.props.data.country}</p>
                         <p>{this.props.data.cap}</p>
-                        <Button onClick={this.handleEdit.bind(this)} bsStyle='primary'>Edit</Button>
-                        <Button onClick={this.handleRemove.bind(this)} bsStyle='primary'>Remove</Button>
-
+                        <Row>
+                            <Button onClick={this.handleEdit.bind(this)} bsStyle='link' >Edit</Button>
+                            <Button onClick={this.handleRemove.bind(this)} bsStyle='link'>Remove</Button>
+                            <Button onClick={this.handleDelivery.bind(this)} bsStyle='primary'>Deliver Here</Button>
+                        </Row>
                     </Col>
                 </Row>
             </Well>

@@ -26,12 +26,29 @@ export function postAddresses(address){
             .then(function(response){
                 dispatch({type:"POST_ADDRESS", payload:response.data})
             })
-            .then(function(){
+            .then(function(response){
                 dispatch(getAddresses());
             })
-            .catch(function(err){
-                console.log(err);
-                dispatch({type:"POST_ADDRESS_REJECTED", payload:"there was an error while posting "})
+            .catch(function(error){
+
+                if (error.response) {
+                    /*
+                    console.log('error.response.data',error.response.data);
+                    console.log('error.response.stat',error.response.status);
+                    console.log('error.response.head',error.response.headers);
+                    */
+                    if(error.response.status == 422){
+                        dispatch({type:"POST_ADDRESS_REJECTED", payload: {msg:"Validation error",validation:error.response.data}})
+                    }else{
+                        dispatch({type:"POST_ADDRESS_REJECTED", payload:"there was an error while posting "})
+                    }
+                } else if (error.request) {
+                    console.log('error.request',error.request);
+                    dispatch({type:"POST_ADDRESS_REJECTED", payload:"there was an error while posting "})
+                } else {
+                    console.log('Error', error.message);
+                    dispatch({type:"POST_ADDRESS_REJECTED", payload:"there was an error while posting "})
+                }
             })
     }
 }

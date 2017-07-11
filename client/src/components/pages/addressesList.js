@@ -3,7 +3,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getAddresses, postAddresses} from '../../actions/adressesActions';
 import {bindActionCreators} from 'redux';
-import { Grid, Col, Row, Button} from 'react-bootstrap';
+import {Alert, Grid, Col, Row, Button} from 'react-bootstrap';
 
 import AddressItem from './addressItem';
 
@@ -31,7 +31,7 @@ class AddressesList extends React.Component{
                 <h1>Addresses</h1>
                 <Row>
                     <Col xs={12}>
-                        <p className={'bg-'+this.props.style}>{this.props.msg}</p>
+                        {this.props.msg ? (<Alert bsStyle={this.props.style} >{this.props.msg}</Alert>) : ''  }
                     </Col>
                 </Row>
                 <Row >
