@@ -71,7 +71,7 @@ class AddressForm extends React.Component{
                         <ControlLabel>* phone</ControlLabel>
                         <FormControl type="phone" ref="phone" placeholder="* phone" />
                     </FormGroup>
-                    <Button onClick={this.handleSubmit.bind(this)} bsStyle="primary" >Add book</Button>
+                    <Button onClick={this.handleSubmit.bind(this)} bsStyle="primary" >Add Address</Button>
                 </Panel>
             </Well>
         )

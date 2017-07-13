@@ -16,15 +16,11 @@ export function addressesReducers(state={
             return {...state, msg:action.payload.msg, style:'danger', validation:action.payload.validation}
             break;
         case "DELETE_ADDRESS":
-            const currentAddressToDelete = [...state.addresses]
-            const indexToDelete = currentAddressToDelete.findIndex(
-                function(address){
-                    return address._id == action.payload;
-                }
-            )
-            return {addresses: [...currentAddressToDelete.slice(0, indexToDelete), ...currentAddressToDelete.slice(indexToDelete + 1)]}
+            return {...state, msg:'Address deleted', style:'success', validation:[]}
             break;
-
+        case "DELETE_ADDRESS_REJECTED":
+            return {...state, msg:'Address cannot be deleted', style:'danger', validation:[]}
+            break;
         case "UPDATE_ADDRESS":
             const currentAddressToUpdate = [...state.addresses]
             const indexToUpdate = currentAddressToUpdate.findIndex(

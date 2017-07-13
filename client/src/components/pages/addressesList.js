@@ -18,7 +18,7 @@ class AddressesList extends React.Component{
     render(){
         const addrList = this.props.addresses.map(function(addr,index){
             return(
-                <Col xs={12} sm={6} md={4} key={addr.id}>
+                <Col xs={12} sm={4} md={4} key={addr.id}>
                     <AddressItem
                         id={addr.id}
                         data={addr}

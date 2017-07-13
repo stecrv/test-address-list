@@ -60,6 +60,9 @@ export function deleteAddresses(id){
             .then(function(response){
                 dispatch({type:"DELETE_ADDRESS", payload:id})
             })
+            .then(function(response){
+                dispatch(getAddresses());
+            })
             .catch(function(err){
                 dispatch({type:"DELETE_ADDRESS_REJECTED", payload:err})
             })
