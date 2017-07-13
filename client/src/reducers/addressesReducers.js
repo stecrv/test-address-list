@@ -9,11 +9,23 @@ export function addressesReducers(state={
             // return {addresses};
             return {...state, addresses:[...action.payload]}
             break;
+        case "GET_ADDRESS":
+            const currentAddresses = [...state.addresses]
+            const addressToSelectId = currentAddresses.findIndex(
+                function(address){
+                    return address.id === action.payload
+                }
+            )
+            return {...state, address:currentAddresses[addressToSelectId]}
+            break;
         case "POST_ADDRESS":
             return {...state, msg:'Saved! Click to continue', style:'success', validation:[]}
             break;
         case "POST_ADDRESS_REJECTED":
             return {...state, msg:action.payload.msg, style:'danger', validation:action.payload.validation}
+            break;
+        case "PUT_ADDRESS_REJECTED":
+            return {...state, msg:'Product cannot be updated', style:'danger', validation:[]}
             break;
         case "DELETE_ADDRESS":
             return {...state, msg:'Address deleted', style:'success', validation:[]}
@@ -32,7 +44,7 @@ export function addressesReducers(state={
                 ...currentAddressToUpdate[indexToUpdate],
                 title: action.payload.title
             }
-            console.log("what is it newAddressToUpdate", newAddressToUpdate);
+
             return {addresses: [...currentAddressToUpdate.slice(0, indexToUpdate), newAddressToUpdate, ...currentAddressToUpdate.slice(indexToUpdate + 1)]}
             break;
     }

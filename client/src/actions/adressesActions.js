@@ -69,15 +69,21 @@ export function deleteAddresses(id){
     }
 }
 
+export function getAddress(id){
+    return {type:"GET_ADDRESS", payload:id}
+};
 
 export function updateAddresses(address){
     return function(dispatch){
-        axios.post(getRestUrl()+"/addresses/" + address.id, address)
+        axios.put(getRestUrl()+"/addresses/" + address.id, address)
             .then(function(response){
-                dispatch({type:"POST_ADDRESS", payload:response.data})
+                dispatch({type:"PUT_ADDRESS", payload:response.data})
+            })
+            .then(function(response){
+                dispatch(getAddresses());
             })
             .catch(function(err){
-                dispatch({type:"POST_ADDRESS_REJECTED", payload:"there was an error while updating "})
+                dispatch({type:"PUT_ADDRESS_REJECTED", payload:"there was an error while updating "})
             })
     }
 }
