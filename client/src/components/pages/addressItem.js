@@ -21,12 +21,13 @@ class AddressItem extends React.Component {
     }
 
     render() {
+        const d = this.props.data;
         return (
             <Well>
-                        <p>{this.props.data.title} {this.props.data.name}</p>
-                        <p>{this.props.data.line1}</p>
-                        <p>{this.props.data.line2}</p>
-                        <p>{this.props.data.postcode}, {this.props.data.city}, {this.props.data.country}</p>
+                        <p>{d.title} {d.name}</p>
+                        <p>{d.line1}</p>
+                        <p>{d.line2}</p>
+                        <p>{d.postcode}, {d.city}, {d.country}</p>
                         <Row>
                             <Col xs={6}>
                                 <Button onClick={this.handleEdit.bind(this)} bsStyle='link'>Edit</Button>

@@ -25,8 +25,12 @@ class AddressForm extends React.Component{
         this.props.postAddresses(address);
     }
 
+    handleValidation(field){
+        return this.props && this.props.validation  && this.props.validation.length && this.props.validation[field] ? 'error' : null
+    }
+
     render(){
-        var validationTag = ''
+        var validationTag = '';
         if(this.props.validation && this.props.validation.length) {
             const validationError = this.props.validation.map(function (err, index) {
                 return (
@@ -43,11 +47,11 @@ class AddressForm extends React.Component{
                         <ControlLabel>Title</ControlLabel>
                         <FormControl type="text" ref="title" placeholder="Enter Title" />
                     </FormGroup>
-                    <FormGroup controlId="name">
+                    <FormGroup controlId="name" validationState={ this.handleValidation(1) } >
                         <ControlLabel>* full name</ControlLabel>
                         <FormControl type="text" ref="name" placeholder="* full name" />
                     </FormGroup>
-                    <FormGroup controlId="line1">
+                    <FormGroup controlId="line1" validationState={ this.handleValidation(2) } >
                         <ControlLabel>Address line 1</ControlLabel>
                         <FormControl type="text" ref="line1" placeholder="* address line 1" />
                     </FormGroup>
@@ -55,7 +59,7 @@ class AddressForm extends React.Component{
                         <ControlLabel>Address line 2</ControlLabel>
                         <FormControl type="text" ref="line2" placeholder="address line 2" />
                     </FormGroup>
-                    <FormGroup controlId="town">
+                    <FormGroup controlId="town" validationState={ this.handleValidation(4) } >
                         <ControlLabel>* Towm/City</ControlLabel>
                         <FormControl type="town" ref="town" placeholder="* town" />
                     </FormGroup>
@@ -63,11 +67,11 @@ class AddressForm extends React.Component{
                         <ControlLabel>Country</ControlLabel>
                         <FormControl type="country" ref="country" placeholder="country" />
                     </FormGroup>
-                    <FormGroup controlId="postcode">
+                    <FormGroup controlId="postcode" validationState={ this.handleValidation(5) }>
                         <ControlLabel>* postcode</ControlLabel>
                         <FormControl type="postcode" ref="postcode" placeholder="country" />
                     </FormGroup>
-                    <FormGroup controlId="phone">
+                    <FormGroup controlId="phone" validationState={ this.handleValidation(6) }>
                         <ControlLabel>* phone</ControlLabel>
                         <FormControl type="phone" ref="phone" placeholder="* phone" />
                     </FormGroup>
