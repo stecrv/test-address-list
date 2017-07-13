@@ -11,7 +11,9 @@ class AddressItem extends React.Component {
     }
 
     handleRemove() {
-        this.props.deleteAddresses(this.props.id)
+        if(confirm('Delete the item?')) {
+            this.props.deleteAddresses(this.props.id)
+        };
     }
 
     handleDelivery() {
