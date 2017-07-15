@@ -10,9 +10,11 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use('/public', express.static(path.join(__dirname + '/client/public')));
-
 app.get('/', (req, res) => {
-  res.json('Hello World!')
+    res.writeHead(302, {
+        'Location': '/public'
+    });
+    res.end();
 })
 
 app.get('/addresses', (req, res) => {
@@ -29,7 +31,7 @@ app.post('/addresses', (req, res) => {
   addresses.push(Object.assign({
     id,
     line2: '',
-    county: ''
+    country: ''
   }, req.body))
   id++;
   res.status(204).json()

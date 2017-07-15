@@ -16,37 +16,30 @@ export function addressesReducers(state={
                     return address.id === action.payload
                 }
             )
-            return {...state, address:currentAddresses[addressToSelectId]}
+            return {...state, address:currentAddresses[addressToSelectId], clear:false}
             break;
         case "POST_ADDRESS":
-            return {...state, msg:'Saved! Click to continue', style:'success', validation:[]}
+            return {...state, msg:'Saved! Click to continue', style:'success', validation:[], clear:true}
             break;
         case "POST_ADDRESS_REJECTED":
-            return {...state, msg:action.payload.msg, style:'danger', validation:action.payload.validation}
-            break;
-        case "PUT_ADDRESS_REJECTED":
-            return {...state, msg:'Product cannot be updated', style:'danger', validation:[]}
+            return {...state, msg:action.payload.msg, style:'danger', validation:action.payload.validation,clear:false}
             break;
         case "DELETE_ADDRESS":
-            return {...state, msg:'Address deleted', style:'success', validation:[]}
+            return {...state, msg:'Address deleted', style:'success', validation:[], clear:true}
             break;
         case "DELETE_ADDRESS_REJECTED":
-            return {...state, msg:'Address cannot be deleted', style:'danger', validation:[]}
+            return {...state, msg:'Address cannot be deleted', style:'danger', validation:[],clear:false}
             break;
         case "UPDATE_ADDRESS":
-            const currentAddressToUpdate = [...state.addresses]
-            const indexToUpdate = currentAddressToUpdate.findIndex(
-                function(address){
-                    return address._id === action.payload._id;
-                }
-            )
-            const newAddressToUpdate = {
-                ...currentAddressToUpdate[indexToUpdate],
-                title: action.payload.title
-            }
-
-            return {addresses: [...currentAddressToUpdate.slice(0, indexToUpdate), newAddressToUpdate, ...currentAddressToUpdate.slice(indexToUpdate + 1)]}
+            return {...state, address: null, msg:'Updated! Click to continue',
+                style:'success', validation:[], clear:true}
             break;
+        case "UPDATE_ADDRESS_REJECTED":
+            return {...state, msg:'Product cannot be updated', style:'danger', validation:[],clear:false}
+            break;
+        case "RESET_DATA":
+            return {...state, address: null, msg:null, style:null, validation:[], clear:true}
+
     }
     return state
 }

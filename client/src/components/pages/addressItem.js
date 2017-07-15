@@ -27,7 +27,7 @@ class AddressItem extends React.Component {
                         <p>{d.id}) {d.title} {d.name}</p>
                         <p>{d.line1}</p>
                         <p>{d.line2}</p>
-                        <p>{d.postcode}, {d.city}, {d.country}</p>
+                        <p>{d.postcode} {d.city}, {d.country}</p>
                         <Row>
                             <Col xs={6}>
                                 <Button onClick={this.handleEdit.bind(this)} bsStyle='link'>Edit</Button>
@@ -43,7 +43,7 @@ class AddressItem extends React.Component {
     }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapStateToProps(dispatch) {
     return bindActionCreators({
         updateAddresses: updateAddresses,
         deleteAddresses: deleteAddresses
@@ -51,8 +51,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapDispatchToProps(dispatch){
-    return bindActionCreators(
-        {getAddress},
+    return bindActionCreators({
+            getAddress:getAddress,
+            deleteAddresses:deleteAddresses
+        },
         dispatch)
 }
-export default connect(mapDispatchToProps, mapDispatchToProps)(AddressItem);
+export default connect(mapStateToProps, mapDispatchToProps)(AddressItem);

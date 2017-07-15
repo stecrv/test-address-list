@@ -12,14 +12,14 @@ class AddressForm extends React.Component{
     componentWillReceiveProps(nextProps) {
         //update
         if(nextProps.address) {
-            findDOMNode(this.refs.title).value = nextProps.address.title
-            findDOMNode(this.refs.name).value = nextProps.address.name
-            findDOMNode(this.refs.line1).value = nextProps.address.line1
-            findDOMNode(this.refs.line2).value = nextProps.address.line2
-            findDOMNode(this.refs.town).value = nextProps.address.town
-            findDOMNode(this.refs.country).value = nextProps.address.country
-            findDOMNode(this.refs.postcode).value = nextProps.address.postcode
-            findDOMNode(this.refs.phone).value = nextProps.address.phone
+            for (var property in this.refs) {
+                findDOMNode(this.refs[property]).value  = nextProps.address[property]
+            }
+        }
+        if(nextProps.clear ) {
+            for (var property in this.refs) {
+                findDOMNode(this.refs[property]).value  = ""
+            }
         }
     }
 
@@ -35,7 +35,7 @@ class AddressForm extends React.Component{
             phone: findDOMNode(this.refs.phone).value,
 
         }
-        if(this.props.address){
+        if(this.props.address && this.props.address.id){
             address.id = this.props.address.id
             this.props.updateAddresses(address);
         }else{
@@ -105,7 +105,9 @@ function mapStateToProps(state){
     return{
         addresses: state.addresses.addresses,
         validation: state.addresses.validation,
-        address: state.addresses.address
+        address: state.addresses.address,
+        style: state.addresses.style,
+        clear: state.addresses.clear
     }
 }
 function mapDispatchToProps(dispatch){

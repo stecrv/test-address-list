@@ -77,13 +77,19 @@ export function updateAddresses(address){
     return function(dispatch){
         axios.put(getRestUrl()+"/addresses/" + address.id, address)
             .then(function(response){
-                dispatch({type:"PUT_ADDRESS", payload:response.data})
+                dispatch({type:"UPDATE_ADDRESS", payload:response.data})
             })
             .then(function(response){
                 dispatch(getAddresses());
             })
             .catch(function(err){
-                dispatch({type:"PUT_ADDRESS_REJECTED", payload:"there was an error while updating "})
+                dispatch({type:"UPDATE_ADDRESS_REJECTED", payload:"there was an error while updating "})
             })
+    }
+}
+
+export function resetData(){
+    return {
+        type:"RESET_DATA"
     }
 }

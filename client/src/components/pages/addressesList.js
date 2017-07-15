@@ -1,9 +1,9 @@
 "use strict"
 import React from 'react';
 import {connect} from 'react-redux';
-import {getAddresses, postAddresses} from '../../actions/adressesActions';
+import {getAddresses, postAddresses, resetData} from '../../actions/adressesActions';
 import {bindActionCreators} from 'redux';
-import {Alert, Grid, Col, Row, Button} from 'react-bootstrap';
+import {Well, Alert, Grid, Col, Row, Button} from 'react-bootstrap';
 
 import AddressItem from './addressItem';
 
@@ -12,6 +12,9 @@ import AddressForm from './addressForm';
 
 
 class AddressesList extends React.Component{
+    handleNew(){
+        this.props.resetData()
+    }
     componentDidMount(){
         this.props.getAddresses()
     }
@@ -26,6 +29,11 @@ class AddressesList extends React.Component{
                 </Col>
             )
         });
+        const newAddr =addrList.length ? <Col xs={12} sm={4} md={4} >
+            <Well>
+                <Button onClick={this.handleNew.bind(this)} bsStyle='primary'>Add a new address</Button>
+            </Well>
+        </Col> : ''
         return(
             <div>
                 <h1>Addresses</h1>
@@ -35,7 +43,8 @@ class AddressesList extends React.Component{
                     </Col>
                 </Row>
                 <Row >
-                        {addrList}
+                    { addrList }
+                    { newAddr }
                 </Row>
                 <Row>
                     <Col xs={12}>
@@ -57,7 +66,8 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
     return bindActionCreators({
         getAddresses:getAddresses,
-        postAddresses:postAddresses
+        postAddresses:postAddresses,
+        resetData:resetData
     }, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AddressesList);
